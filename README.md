@@ -19,8 +19,8 @@ Admin: `/admin/login`. Demo credentials are in `ADMIN_LOGIN.md` (gitignored).
 Orders are created only through `place_order()`, which re-prices items and validates the pickup slot server-side.
 
 ## Demo data
-Products, prices and photos come from dorbari1.wordpress.com. Orders #1001–#1006 are **sample orders** for the demo;
-clear them in the Supabase SQL editor with `delete from orders; alter sequence order_number_seq restart with 1001;`
+Products, prices and photos come from dorbari1.wordpress.com. There are no orders in the database:
+the first order placed in the store becomes #1001 and appears in the admin live.
 
 ## Before going live
 Disable public sign-ups in Supabase Auth, enable leaked-password protection, set the pickup address in the admin, change the admin password.
