@@ -45,3 +45,7 @@ ADMIN_LOGIN.md
 
 # local tooling
 .claude/
+
+# generated demo setup (contains demo admin password)
+supabase/demo/*.local.sql
+DEMO_LOGIN.md
