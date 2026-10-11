@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Field, Select, Textarea } from "@/components/ui/field";
 import { Switch } from "@/components/ui/switch";
 import { getBrowserSupabase } from "@/lib/supabase/client";
+import { IS_DEMO } from "@/lib/demo";
 import { WEEKDAY_NAMES, toMinutes } from "@/lib/pickup";
 import type { BusinessSettings, WeeklyHours } from "@/lib/types";
 
@@ -90,10 +91,14 @@ export function PickupSettings({ settings }: { settings: BusinessSettings }) {
           <div>
             <p className="text-[18px] font-bold">{accepting ? "מקבלים הזמנות באתר" : "קבלת הזמנות מושהית"}</p>
             <p className="text-[14px] text-muted">
-              {accepting ? "כיבוי המתג סוגר מיד את האפשרות להזמין באתר, למשל בחופשה." : "לקוחות רואים את החנות אבל לא יכולים לשלוח הזמנה."}
+              {IS_DEMO
+                ? "כיבוי המתג סוגר מיד את האפשרות להזמין באתר. בגרסת ההדגמה הוא נעול, כדי שכל המתעניינים יוכלו להזמין."
+                : accepting
+                  ? "כיבוי המתג סוגר מיד את האפשרות להזמין באתר, למשל בחופשה."
+                  : "לקוחות רואים את החנות אבל לא יכולים לשלוח הזמנה."}
             </p>
           </div>
-          <Switch checked={accepting} onChange={toggleAccepting} disabled={togglingOrders} label="מקבלים הזמנות באתר" />
+          <Switch checked={accepting} onChange={toggleAccepting} disabled={togglingOrders || IS_DEMO} label="מקבלים הזמנות באתר" />
         </div>
         {!accepting && (
           <Field label="הודעה ללקוחות" htmlFor="closed-message" optional className="mt-4" hint="תוצג בעמוד ההזמנה. נשמרת עם כפתור השמירה למטה.">

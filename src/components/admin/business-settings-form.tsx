@@ -16,7 +16,7 @@ const optionalUrl = z
   .refine((v) => !v || /^https?:\/\/\S+\.\S+/.test(v), "קישור לא תקין (צריך להתחיל ב-https://)");
 
 const schema = z.object({
-  phone: z.string().trim().refine((v) => /^0\d{1,2}-?\d{7}$/.test(v.replace(/\s/g, "")), "מספר טלפון לא תקין"),
+  phone: z.string().trim().refine((v) => !v || /^0\d{1,2}-?\d{7}$/.test(v.replace(/\s/g, "")), "מספר טלפון לא תקין"),
   email: z.string().trim().refine((v) => !v || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v), "אימייל לא תקין"),
   instagram_url: optionalUrl,
   facebook_url: optionalUrl,
@@ -68,7 +68,7 @@ export function BusinessSettingsForm({ settings }: { settings: BusinessSettings 
       <Panel className="space-y-5 p-5 md:p-6">
         <h2 className="text-[18px] font-bold">פרטי קשר</h2>
         <div className="grid gap-5 sm:grid-cols-2">
-          <Field label="טלפון להזמנות" htmlFor="phone" error={errors.phone}>
+          <Field label="טלפון להזמנות" htmlFor="phone" optional error={errors.phone}>
             <Input id="phone" type="tel" dir="ltr" className="text-right" value={values.phone} onChange={set("phone")} invalid={!!errors.phone} />
           </Field>
           <Field label="אימייל" htmlFor="email" optional error={errors.email}>

@@ -62,7 +62,7 @@ export default async function HomePage() {
 
       {/* ── Practical info ── */}
       <section aria-label="מידע להזמנה" className="mx-auto mt-10 max-w-[1200px] px-4 md:px-8">
-        <ul className="grid gap-px overflow-hidden rounded-[var(--radius-panel)] border border-crumb bg-crumb sm:grid-cols-3">
+        <ul className={`grid gap-px overflow-hidden rounded-[var(--radius-panel)] border border-crumb bg-crumb ${settings.phone ? "sm:grid-cols-3" : "sm:grid-cols-2"}`}>
           <li className="flex items-center gap-3 bg-white px-5 py-4">
             <ShoppingBag className="size-5 shrink-0 text-cocoa" strokeWidth={1.75} />
             <span>מזמינים באתר, אוספים בעצמכם</span>
@@ -77,12 +77,14 @@ export default async function HomePage() {
               ))}
             </span>
           </li>
-          <li className="flex items-center gap-3 bg-white px-5 py-4">
-            <Phone className="size-5 shrink-0 text-cocoa" strokeWidth={1.75} />
-            <span>
-              שאלות? <a href={telHref(settings.phone)} className="font-semibold underline-offset-4 hover:underline" dir="ltr">{settings.phone}</a>
-            </span>
-          </li>
+          {settings.phone && (
+            <li className="flex items-center gap-3 bg-white px-5 py-4">
+              <Phone className="size-5 shrink-0 text-cocoa" strokeWidth={1.75} />
+              <span>
+                שאלות? <a href={telHref(settings.phone)} className="font-semibold underline-offset-4 hover:underline" dir="ltr">{settings.phone}</a>
+              </span>
+            </li>
+          )}
         </ul>
       </section>
 
@@ -162,10 +164,15 @@ export default async function HomePage() {
               וטבעוניים, לצד הקלאסיקות שגורמות לכולם לחזור.
             </p>
             <p className="mt-4 text-[18px] leading-[1.75]">
-              מכינים גם מתוקים לאירועים, לחברות ולמתנות לעובדים.{" "}
-              <a href={telHref(settings.phone)} className="font-semibold text-cocoa underline underline-offset-4">
-                דברו איתנו
-              </a>
+              מכינים גם מתוקים לאירועים, לחברות ולמתנות לעובדים.
+              {settings.phone && (
+                <>
+                  {" "}
+                  <a href={telHref(settings.phone)} className="font-semibold text-cocoa underline underline-offset-4">
+                    דברו איתנו
+                  </a>
+                </>
+              )}
             </p>
           </div>
         </div>

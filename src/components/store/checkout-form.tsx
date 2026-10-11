@@ -129,10 +129,12 @@ export function CheckoutForm({ settings, blocked }: { settings: BusinessSettings
           <div className="rounded-[var(--radius-panel)] border border-raspberry/25 bg-raspberry-soft p-5 text-raspberry" role="status">
             <p className="font-semibold">כרגע לא מקבלים הזמנות דרך האתר</p>
             <p className="mt-1">
-              {settings.closed_message || "אפשר להזמין בטלפון"}{" "}
-              <a href={telHref(settings.phone)} className="font-semibold underline" dir="ltr">
-                {settings.phone}
-              </a>
+              {settings.closed_message || (settings.phone ? "אפשר להזמין בטלפון" : "נסו שוב בקרוב.")}{" "}
+              {settings.phone && (
+                <a href={telHref(settings.phone)} className="font-semibold underline" dir="ltr">
+                  {settings.phone}
+                </a>
+              )}
             </p>
           </div>
         )}
@@ -150,10 +152,15 @@ export function CheckoutForm({ settings, blocked }: { settings: BusinessSettings
               <div className="flex items-start gap-3 rounded-[var(--radius-panel)] bg-meringue p-5">
                 <CalendarX className="mt-0.5 size-5 shrink-0 text-cocoa" />
                 <p>
-                  אין כרגע מועדי איסוף פנויים באתר. אפשר להזמין בטלפון{" "}
-                  <a href={telHref(settings.phone)} className="font-semibold underline" dir="ltr">
-                    {settings.phone}
-                  </a>
+                  אין כרגע מועדי איסוף פנויים באתר.
+                  {settings.phone && (
+                    <>
+                      {" "}אפשר להזמין בטלפון{" "}
+                      <a href={telHref(settings.phone)} className="font-semibold underline" dir="ltr">
+                        {settings.phone}
+                      </a>
+                    </>
+                  )}
                 </p>
               </div>
             ) : (

@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Assistant, Bellefair } from "next/font/google";
 import { Toaster } from "sonner";
 import "./globals.css";
+import { IS_DEMO } from "@/lib/demo";
 
 const bellefair = Bellefair({
   weight: "400",
@@ -24,6 +25,7 @@ export const metadata: Metadata = {
   description:
     "עוגות, טארטים, עוגיות ומאפים בעבודת יד מבית הקונדיטורית דורה. מזמינים באתר ואוספים טריים.",
   icons: { icon: "/brand/icon.png" },
+  ...(IS_DEMO && { robots: { index: false, follow: false } }),
 };
 
 export const viewport: Viewport = {
